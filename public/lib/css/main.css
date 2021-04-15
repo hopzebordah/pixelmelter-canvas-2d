@@ -1,0 +1,8 @@
+canvas {
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+#function-inputs input {
+    margin-bottom: 1rem;
+}
