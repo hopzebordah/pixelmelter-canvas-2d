@@ -114,7 +114,6 @@ const downloadImageInCanvas = (el) => {
     if (!imageSelected) return
     const url = outcanvas.toDataURL("image/jpg")
     debugBase64(url)
-    // el.href = url
 }
 
 const mounted = () => resetCanvas(outcanvas)
