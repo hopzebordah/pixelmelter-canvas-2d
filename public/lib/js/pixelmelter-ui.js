@@ -89,6 +89,13 @@ const sortCanvasImage = (canvas) => {
     drawImageDataToCanvas(canvas, newImageData)
 }
 
+var download = function(){
+    var link = document.createElement('a');
+    link.download = 'filename.png';
+    link.href = document.getElementById('canvas').toDataURL()
+    link.click();
+}
+
 function rgb2hsv(r,g,b) {
     let v=Math.max(r,g,b), c=v-Math.min(r,g,b)
     let h= c && ((v==r) ? (g-b)/c : ((v==g) ? 2+(b-r)/c : 4+(r-g)/c))
