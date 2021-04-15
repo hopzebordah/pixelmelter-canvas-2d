@@ -6,6 +6,8 @@ const outcanvas = document.getElementById("incanvas")
 const clearButton = document.getElementById("clear-button")
 const resetButton = document.getElementById("reset-button")
 const sortButton = document.getElementById("sort-button")
+const downloadButton = document.getElementById("download-button")
+
 const intensityInputMin = document.getElementById("intensity-input-min")
 const intensityInputMax = document.getElementById("intensity-input-max")
 const hueInputMin = document.getElementById("hue-input-min")
@@ -102,6 +104,19 @@ function rgb2hsv(r,g,b) {
     return { h: Math.floor((60*(h<0?h+6:h))/360*100), s: Math.floor((v&&c/v) * 100), v: Math.floor((v/255)*100) }
 }
 
+function debugBase64(base64URL){
+    var win = window.open();
+    win.document.write('<iframe src="' + base64URL  + '" frameborder="0" style="border:0; top:0px; left:0px; bottom:0px; right:0px; width:100%; height:100%;" allowfullscreen></iframe>');
+}
+
+const downloadImageInCanvas = (el) => {
+    console.log(`hey im working here`)
+    if (!imageSelected) return
+    const url = outcanvas.toDataURL("image/jpg")
+    debugBase64(url)
+    // el.href = url
+}
+
 const mounted = () => resetCanvas(outcanvas)
 
 openFileButton.onclick = () => fileInput.click()
@@ -109,6 +124,7 @@ fileInput.onchange = loadImageFromFile
 clearButton.onclick = () => resetCanvas(outcanvas)
 resetButton.onclick = () => resetCanvasToPrevImage(outcanvas)
 sortButton.onclick = () => sortCanvasImage(outcanvas)
+//downloadButton.onclick = downloadImageInCanvas
 
 window.addEventListener("DOMContentLoaded", () => {
     mounted()
