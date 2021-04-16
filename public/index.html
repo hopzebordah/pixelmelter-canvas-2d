@@ -4,6 +4,7 @@
     <title>PixelMelter (2d canvas)</title>
     <link rel="stylesheet" href="./lib/css/main.css"></head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="./lib/js/gifshot/gifshot.min.js" defer></script>
     <script src="./lib/js/pixelmelter-core.js" defer></script>
     <script src="./lib/js/pixelmelter-ui.js" defer></script>
 </head>
@@ -17,7 +18,7 @@
                 <canvas class="d-inline-block" id="incanvas" width="0" height="0">
                 <hr>
             </div>
-            <div class="col-1"></div>
+            <div id="gif-output" class="col-12 text-center mb-3"></div>
             <div class="col-2 text-center">
                 <button id="open-file-button" class="btn btn-primary btn-block" type="button">Open File</button>
             </div>
@@ -33,7 +34,9 @@
             <div class="col-2 text-center text-light">    
                 <a id="download-button" onclick="downloadImageInCanvas(this);" class="btn btn-primary btn-block">Download</a>
             </div>
-            <div class="col-1"></div>
+            <div class="col-2">
+                <button id="animate-button" class="btn btn-primary btn-block" type="button">Animate</button>
+            </div>
             <div class="col-12">
                 <hr>
                 <div id="function-inputs" class="row">

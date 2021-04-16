@@ -7,6 +7,7 @@ const clearButton = document.getElementById("clear-button")
 const resetButton = document.getElementById("reset-button")
 const sortButton = document.getElementById("sort-button")
 const downloadButton = document.getElementById("download-button")
+const animateButton = document.getElementById("animate-button")
 
 const intensityInputMin = document.getElementById("intensity-input-min")
 const intensityInputMax = document.getElementById("intensity-input-max")
@@ -71,6 +72,7 @@ const drawImageDataToCanvas = (canvas, imageData) => {
     const ctx = getContext(canvas)
     ctx.putImageData(imageData, 0, 0)
 }
+
 const sortCanvasImage = (canvas) => {
     if (!imageSelected) return
     const ctx = getContext(canvas)
@@ -89,6 +91,30 @@ const sortCanvasImage = (canvas) => {
         imageData,
     )
     drawImageDataToCanvas(canvas, newImageData)
+}
+
+const animateCanvasWithCurrentSettings = canvas => {
+    if (!imageSelected) return
+    let images = []
+    for (let i=0; i<45; i++) {
+        sortCanvasImage(canvas)
+        images.push(outcanvas.toDataURL())
+    }
+    gifshot.createGIF({ 
+        images: images, 
+        gifWidth: canvas.width, 
+        gifHeight: canvas.height,
+        frameDuration: .08
+
+    }, obj => {
+        if(!obj.error) {
+            console.log('animation done!!')
+            var image = obj.image,
+            animatedImage = document.createElement('img')
+            animatedImage.src = image
+            document.getElementById("gif-output").appendChild(animatedImage)
+        }
+    });
 }
 
 var download = function(){
@@ -110,20 +136,20 @@ function debugBase64(base64URL){
 }
 
 const downloadImageInCanvas = (el) => {
-    console.log(`hey im working here`)
     if (!imageSelected) return
     const url = outcanvas.toDataURL("image/jpg")
     debugBase64(url)
 }
 
-const mounted = () => resetCanvas(outcanvas)
-
-openFileButton.onclick = () => fileInput.click()
-fileInput.onchange = loadImageFromFile
-clearButton.onclick = () => resetCanvas(outcanvas)
-resetButton.onclick = () => resetCanvasToPrevImage(outcanvas)
-sortButton.onclick = () => sortCanvasImage(outcanvas)
-//downloadButton.onclick = downloadImageInCanvas
+const mounted = () => { 
+    resetCanvas(outcanvas)
+    openFileButton.onclick = () => fileInput.click()
+    fileInput.onchange = loadImageFromFile
+    clearButton.onclick = () => resetCanvas(outcanvas)
+    resetButton.onclick = () => resetCanvasToPrevImage(outcanvas)
+    sortButton.onclick = () => sortCanvasImage(outcanvas)
+    animateButton.onclick = () => animateCanvasWithCurrentSettings(outcanvas)
+}
 
 window.addEventListener("DOMContentLoaded", () => {
     mounted()
